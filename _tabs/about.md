@@ -4,5 +4,10 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
+백엔드 개발자 2년차, Java / Spring Boot로 일하고 있습니다. Kafka 컨슈머·프로듀서, Netty TCP 서버, gRPC, WebFlux를 운영해봤지만 알고리즘 코딩테스트 경험은 거의 없어서, 3개월 목표로 처음부터 다시 공부하고 있습니다.
+
+- 목표: 3개월 안에 국내 대기업 / 외국계 코딩테스트 통과 수준
+- 플랫폼: 프로그래머스, LeetCode (백준은 서비스 종료)
+- 원칙: 하루 1~2문제, 정답보다 시행착오를 기록. "다음 날 백지에서 다시 짤 수 있는가"가 진짜 실력이라고 믿고 있습니다.
+
+이 블로그는 매일 푼 문제와 그 과정에서 겪은 삽질을 기록하는 공간입니다.
