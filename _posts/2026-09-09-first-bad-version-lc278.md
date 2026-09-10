@@ -1,7 +1,7 @@
 ---
-title: "찾자마자 리턴이 안 되는 이진 탐색도 있다 - First Bad Version에서 제일 오래 헤맨 이유"
+title: "[LeetCode-278] \"찾자마자 리턴\"이 안 되는 이진 탐색 패턴 - right=mid, left<right로 후보를 좁힌다"
 date: 2026-09-09 21:00:00 +0900
-categories: [코딩테스트, 이진탐색]
+categories: [알고리즘 연습, 이진탐색]
 tags: [java, leetcode, binary-search]
 ---
 
@@ -55,15 +55,6 @@ if (isBadVersion(mid) && !isBadVersion(mid - 1)) {
 
 이건 통과는 했지만, 반복마다 `isBadVersion`을 최대 2번씩 호출해서 문제가 요구하는 "API 호출 최소화" 조건에 안 맞았다.
 
-## 깨달은 것 — "즉시 리턴이 없는" 이진 탐색 패턴
-
-704, 35와 달리 이 문제는 "딱 맞다"는 조건 자체가 없다 (`isBadVersion`은 true/false 둘 뿐). 이럴 때는:
-
-- `isBadVersion(mid)`가 **true** → mid는 불량. 첫 불량은 mid 자신이거나 더 왼쪽. **오른쪽은 볼 필요 없음**, 그러나 mid 자신은 후보로 남겨야 함 → `right = mid` (mid-1 아님!)
-- `isBadVersion(mid)`가 **false** → mid는 확실히 답이 아님 → `right = mid - 1`이 아니라 `left = mid + 1`
-
-루프 조건도 `left <= right`가 아니라 `left < right`로 바꿔야 한다 — `right`가 mid 자신을 후보로 계속 남기고 있어서, `left == right`가 될 때까지만 좁히면 된다.
-
 ## 최종 코드
 
 ```java
@@ -101,6 +92,23 @@ public static int firstBadVersion(int n) {
 
 루프 종료 시 `left == right == 1` → `return left` = `1` (정답)
 
-## 한 줄 오답노트
+## 오늘 배운 내용 — "즉시 리턴이 없는" 이진 탐색 패턴
 
-> "딱 맞음"이라는 탈출 조건이 없는 이진 탐색은 `right = mid`(후보 유지), `left = mid+1`(확실히 제외), 루프 조건은 `left < right`, 답은 `left`. First Bad Version이 이 패턴의 대표 문제.
+이 문제에서 가장 중요한 내용은, 이진 탐색에 두 가지 다른 유형이 있다는 것이다. 704, 35와 달리 이 문제는 "딱 맞다"는 조건 자체가 없다 (`isBadVersion`은 true/false 둘 뿐). 이럴 때는:
+
+- `isBadVersion(mid)`가 **true** → mid는 불량. 첫 불량은 mid 자신이거나 더 왼쪽. **오른쪽은 볼 필요 없음**, 그러나 mid 자신은 후보로 남겨야 함 → `right = mid` (mid-1 아님!)
+- `isBadVersion(mid)`가 **false** → mid는 확실히 답이 아님 → `right = mid - 1`이 아니라 `left = mid + 1`
+
+루프 조건도 `left <= right`가 아니라 `left < right`로 바꿔야 한다 — `right`가 mid 자신을 후보로 계속 남기고 있어서, `left == right`가 될 때까지만 좁히면 된다.
+
+## 오답노트
+
+- **1차 시도의 문제**: "조건을 만족하면 그게 곧 답"이라고 착각했다. 하지만 이 문제의 조건(`isBadVersion(mid) == true`)은 "mid가 답 후보"라는 뜻이지 "mid가 정답"이라는 뜻이 아니다. 더 왼쪽에도 만족하는 값이 있을 수 있으므로 즉시 리턴하면 안 된다.
+- **2차 시도의 문제**: 정답 자체는 맞았지만 접근 방식이 비효율적이었다. `mid`와 `mid-1`을 동시에 비교하는 방식은 매 반복 API를 최대 2번 호출하게 되어, "API 호출 최소화"라는 이 문제의 진짜 요구사항을 놓쳤다.
+- **최종적으로 정착된 패턴**: "즉시 리턴 조건이 없는" 이진 탐색은 `right = mid`(후보를 유지한 채 좁히기), `left = mid + 1`(확실히 아닌 것만 제외), 루프 조건은 `left < right`, 답은 `left`. First Bad Version이 이 패턴의 대표 문제이고, 앞으로 "예/아니오만 주는 API"나 "조건을 만족하는 첫 위치를 찾는" 유형을 만나면 이 템플릿부터 떠올린다.
+- **디버깅 팁**: `bad`를 다양한 값(1, n, 중간값)으로 바꿔가며 변수 추적표를 직접 그려본 게 이 패턴이 왜 성립하는지 이해하는 데 제일 도움이 됐다.
+
+## 꿀팁
+
+- 이 문제처럼 "이 값 이상은 전부 조건을 만족한다"는 이분법적 구조를 가진 문제는 대부분 `right = mid` / `left = mid + 1` / `left < right` 템플릿으로 풀린다. 문제를 읽을 때 "만족/불만족이 어떤 경계를 기준으로 완전히 갈리는가"부터 확인하는 습관을 들이면 유형 판별이 빨라진다.
+- 비용이 큰(또는 호출 횟수 제한이 있는) API를 다루는 문제는 "한 반복에 API를 몇 번 부르는가"를 항상 세어보자. 정답이어도 호출 횟수 조건 때문에 틀리는 경우가 있다.
