@@ -1,0 +1,46 @@
+---
+---
+
+@use 'abstracts/variables' with (
+  $theme: '{{ site.theme_mode }}'
+);
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* append your custom style below */
+
+/* ---- accent color ---- */
+html[data-bs-theme='light'] {
+  --link-color: #3a63f2;
+  --link-underline-color: #c7d4ff;
+  --checkbox-checked-color: #3a63f2;
+  --sidebar-active-color: #3a63f2;
+  --blockquote-border-color: #c7d4ff;
+}
+
+html[data-bs-theme='dark'] {
+  --link-color: #8fb4ff;
+  --link-underline-color: #3a4b73;
+  --sidebar-active-color: #8fb4ff;
+  --blockquote-border-color: #3a4b73;
+}
+
+/* ---- code block polish ---- */
+.highlight,
+pre {
+  border-radius: 10px;
+}
+
+.highlighter-rouge .highlight,
+figure.highlight {
+  box-shadow: 0 2px 10px rgb(0 0 0 / 8%);
+}
+
+code {
+  border-radius: 4px;
+}
