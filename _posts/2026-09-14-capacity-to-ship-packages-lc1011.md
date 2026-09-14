@@ -1,6 +1,6 @@
 ---
 title: "[LeetCode-1011] 탐색 상한을 \"최댓값\"으로 잡으면 안 되는 이유 - 파라메트릭 서치의 탐색 범위 설계"
-date: 2026-09-14 21:00:00 +0900
+date: 2026-09-14 18:30:00 +0900
 categories: [알고리즘 연습, 이진탐색]
 tags: [java, leetcode, binary-search, parametric-search]
 ---
