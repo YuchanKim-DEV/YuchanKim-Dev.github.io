@@ -9,7 +9,7 @@ tags: [java, leetcode, sorting]
 - 파일 경로: `src/main/java/coding_test/정렬/LC1502_CanMakeArithmeticProgressionFromSequence.java`
 - 난이도: Easy
 
-[1385번]({% post_url 2026-09-15-distance-value-lc1385 %})에서 배열 인덱스 경계 처리 때문에 크게 헤맨 뒤, 일부러 이진 탐색이 아닌 문제를 하나 골랐다. "인접한 두 인덱스(`i`, `i+1`)를 안전하게 비교하는 감각"만 따로 연습하고 싶어서다.
+다른 문제(이진 탐색, 배열 경계값 처리)에서 크게 헤맨 뒤, 일부러 그 유형이 아닌 문제를 하나 골랐다. "인접한 두 인덱스(`i`, `i+1`)를 안전하게 비교하는 감각"만 따로 연습하고 싶어서다.
 
 ## 문제 설명
 
