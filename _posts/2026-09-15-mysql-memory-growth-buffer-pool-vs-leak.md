@@ -1,6 +1,6 @@
 ---
 title: "운영 DB 메모리가 계속 늘어난다는 리포트를 받았을 때 - 버퍼풀 vs 진짜 누수 구분하기"
-date: 2026-09-15 12:00:00 +0900
+date: 2026-09-15 13:14:00 +0900
 categories: [트러블슈팅, MySQL]
 tags: [mysql, mariadb, innodb, troubleshooting, kafka, memory-leak]
 ---
