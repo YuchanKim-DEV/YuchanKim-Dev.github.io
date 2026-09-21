@@ -85,3 +85,14 @@ public static int solution(int[] nums, int target) {
 
 - 이 문제는 일종의 "lower bound(하한) 이진 탐색"의 기본형이다 — "target 이상인 첫 위치를 찾아라" 같은 문제를 만나면 이 패턴(`left <= right`, 종료 후 `left` 반환)을 그대로 재사용할 수 있다.
 - 헷갈릴 때는 극단적인 입력(배열의 모든 원소보다 크거나 작은 target)을 손으로 직접 추적해보는 게 종료 조건을 이해하는 데 제일 효과적이었다.
+
+## AI라면 어떻게 풀었을까
+
+704에서 언급한 `Arrays.binarySearch`의 "못 찾았을 때 음수를 반환한다"는 규약이 바로 이 문제(삽입 위치 찾기)를 위해 설계된 것이다. `Arrays.binarySearch(nums, target)`가 음수 `r`을 반환하면, 삽입 위치는 정확히 `-(r) - 1`이다.
+
+```java
+int r = Arrays.binarySearch(nums, target);
+return r >= 0 ? r : -(r) - 1;
+```
+
+값을 찾으면 그 인덱스, 못 찾으면 코드 한 줄로 삽입 위치가 나온다. 직접 짠 `left <= right` 템플릿을 이해하고 나면, 이 라이브러리 메서드가 내부적으로 정확히 같은 일을 하고 있다는 걸 알아채는 게 포인트다 — 이해 없이 라이브러리만 썼다면 못 봤을 연결이다.

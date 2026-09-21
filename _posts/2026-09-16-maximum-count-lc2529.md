@@ -89,3 +89,15 @@ private static int lowerBound(int[] nums, int target) {
 // neg = lowerBound(nums, 0)
 // pos = nums.length - lowerBound(nums, 1)
 ```
+
+## AI라면 어떻게 풀었을까
+
+이 배열은 이미 정렬돼 있으므로, 사실 이진 탐색 없이 한 번의 선형 스캔만으로도 O(n)에 풀린다 — 이진 탐색을 쓴 지금 코드가 O(log n + k)로 이론상 더 빠르지만, 배열 크기가 작다면 체감 차이는 없다. 스트림으로 짧게 쓰면 이렇다.
+
+```java
+long neg = Arrays.stream(nums).filter(x -> x < 0).count();
+long pos = Arrays.stream(nums).filter(x -> x > 0).count();
+return (int) Math.max(pos, neg);
+```
+
+다만 이 스트림 버전은 배열이 정렬돼 있다는 사실을 전혀 활용하지 못한다 — "정렬돼 있다"는 조건이 주어졌다면, 그 정보를 활용해서 이진 탐색으로 O(log n)에 가깝게 푸는 지금 접근이 조건을 더 잘 활용한 풀이다. 스트림 버전은 "일단 통과만 시키면 되는" 상황에서의 대안 정도로 알아두면 된다.

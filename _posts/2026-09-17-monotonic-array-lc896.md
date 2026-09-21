@@ -63,3 +63,23 @@ public boolean isMonotonic(int[] nums) {
 ## 꿀팁
 
 `{2,2,1}` / `{2,2,3}` / `{1,1,2,1}` / `{5,5,4,9}`처럼 "같은 값으로 시작한 뒤 방향이 바뀌는" 경우를 손으로 먼저 나열해두고 하나씩 검증한 게 버그를 전부 잡아내는 데 결정적이었다. 코드를 짜기 전에 이런 edge case를 먼저 적어두는 습관이 이번에 확실히 도움이 됐다.
+
+## AI라면 어떻게 풀었을까
+
+지금 짠 방식은 플래그 두 개를 한 번의 순회 안에서 같이 갱신하는 방식이라 경계 케이스가 많았다. 훨씬 단순한 방법은 "증가 여부"와 "감소 여부"를 아예 별개의 두 번의 순회로 나눠서 확인하는 것이다.
+
+```java
+public boolean isMonotonic(int[] nums) {
+    return isSorted(nums, true) || isSorted(nums, false);
+}
+
+private boolean isSorted(int[] nums, boolean increasing) {
+    for (int i = 1; i < nums.length; i++) {
+        if (increasing && nums[i - 1] > nums[i]) return false;
+        if (!increasing && nums[i - 1] < nums[i]) return false;
+    }
+    return true;
+}
+```
+
+순회를 두 번 해서 시간복잡도는 그대로 O(n)(상수 배만 늘어남)인데, 각 검사 함수 안에는 "그 방향으로만 확인한다"는 조건 하나만 있어서 플래그를 동시에 관리할 때 생기는 "같을 때 뭘 할지" 같은 복잡한 분기가 아예 사라진다. 오늘 겪었던 네 번의 시행착오(부등호, 같음 처리, current 갱신 누락)가 전부 "플래그를 하나의 루프 안에서 동시에 관리하려는 시도"에서 나왔다는 걸 생각하면, 문제를 두 개의 독립적인 질문으로 쪼개는 이 접근이 왜 더 견고한지 알 수 있다.

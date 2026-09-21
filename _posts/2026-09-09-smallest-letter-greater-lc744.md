@@ -109,3 +109,17 @@ public char nextGreatestLetter(char[] letters, char target) {
 
 - 이진 탐색 코드를 짤 때 모든 `if`/`else` 분기에서 "이 분기는 `left`나 `right` 중 어떤 걸 바꾸는가"를 표로 미리 그려보면, 2차 시도처럼 갱신이 빠진 분기를 코드 작성 전에 미리 잡아낼 수 있다.
 - "답이 없을 수도 있는" 문제 유형은 이 문제(744) 외에도 자주 나온다. `right`를 배열 길이(범위 밖 한 칸)로 넉넉히 잡고 `%`로 순환시키는 이 템플릿을 기억해두면 비슷한 문제에 바로 적용할 수 있다.
+
+## AI라면 어떻게 풀었을까
+
+이 문제도 35번처럼 `Arrays.binarySearch`의 음수 반환 규약을 활용할 수 있다. target과 정확히 같은 값이 있어도 "그보다 큰 값"을 찾아야 하므로 약간의 변형이 필요하다.
+
+```java
+int idx = Arrays.binarySearch(letters, (char) (target + 1));
+if (idx < 0) {
+    idx = -(idx) - 1;
+}
+return letters[idx % letters.length];
+```
+
+`target + 1`을 검색해서 "그 값 이상인 첫 위치"를 찾는 트릭이다 — 직접 짠 이진 탐색 로직과 원리는 같지만, 라이브러리 호출 한 줄로 줄어든다. `% letters.length`로 순환 처리하는 부분은 직접 짠 코드와 동일하게 필요하다.

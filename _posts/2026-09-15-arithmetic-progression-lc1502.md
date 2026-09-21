@@ -49,3 +49,27 @@ public static boolean canMakeArithmeticProgression(int[] arr) {
 ## 오답노트
 
 이번엔 딱히 틀린 게 없었다. 코드를 짜기 전에 "이 반복문에서 배열 밖을 건드릴 수 있는 인덱스가 있는가"를 먼저 점검하고 시작했기 때문이다.
+
+## AI라면 어떻게 풀었을까
+
+지금 방식(정렬 후 인접 비교)은 O(n log n)이다. 정렬 없이 O(n)으로도 풀 수 있다 — 배열의 최솟값과 최댓값, 원소 개수를 알면 등차수열의 공차가 `(max - min) / (n - 1)`로 자동으로 정해진다. 그다음 모든 원소가 `min + k * 공차`(k=0,1,2...) 꼴인지 `HashSet`으로 한 번에 확인하면 정렬 없이 끝난다.
+
+```java
+public boolean canMakeArithmeticProgression(int[] arr) {
+    int min = Arrays.stream(arr).min().getAsInt();
+    int max = Arrays.stream(arr).max().getAsInt();
+    int n = arr.length;
+    if ((max - min) % (n - 1) != 0) return false;
+    int diff = (max - min) / (n - 1);
+
+    Set<Integer> seen = new HashSet<>();
+    for (int num : arr) seen.add(num);
+
+    for (int i = 0; i < n; i++) {
+        if (!seen.contains(min + i * diff)) return false;
+    }
+    return true;
+}
+```
+
+정렬은 직관적이지만, "정렬이 꼭 필요한가"를 한 번 더 의심해보면 더 빠른 풀이가 보일 때가 있다는 걸 보여주는 예시다.

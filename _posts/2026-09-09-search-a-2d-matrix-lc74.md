@@ -90,3 +90,19 @@ public static boolean searchMatrix(int[][] matrix, int target) {
 
 - `row/col ↔ 1차원 인덱스` 변환(`row = idx / n`, `col = idx % n`)은 2차원 배열을 다루는 다른 유형(DFS/BFS, 시뮬레이션 등)에서도 자주 쓰이는 변환이라 이번 기회에 확실히 손에 익혀두면 좋다.
 - 코드를 짤 때 "이 조건들을 합치면 결국 무슨 자료구조와 똑같아지는가"를 먼저 따져보면, 새로운 템플릿을 만들 필요 없이 이미 아는 템플릿(1차원 이진 탐색)을 그대로 재사용할 수 있는 경우가 많다.
+
+## AI라면 어떻게 풀었을까
+
+지금 푼 방식(2차원을 1차원처럼 인덱스 변환)과는 완전히 다른 접근으로 "우상단에서 시작하는 계단식 탐색"이 있다. 오른쪽 위 모서리(`row=0, col=n-1`)에서 시작해서, 현재 값이 target보다 크면 왼쪽으로, 작으면 아래로 이동한다.
+
+```java
+int row = 0, col = matrix[0].length - 1;
+while (row < matrix.length && col >= 0) {
+    if (matrix[row][col] == target) return true;
+    else if (matrix[row][col] > target) col--;
+    else row++;
+}
+return false;
+```
+
+이 방법은 O(m+n)으로 이진 탐색(O(log(mn)))보다 이론적으로는 느리지만, 행과 열이 각각 정렬돼 있는 행렬 전반(이 문제처럼 "전체가 1차원처럼 정렬"이 아닌 경우도 포함)에 통하는 더 일반적인 패턴이라 실전에서 자주 등장한다. 인덱스 변환 공식을 외울 필요가 없다는 것도 장점이다.
