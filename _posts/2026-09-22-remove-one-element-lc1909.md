@@ -1,6 +1,6 @@
 ---
 title: "[LeetCode-1909] 위반이 1번이어도, 지울 원소에 따라 결과가 갈린다"
-date: 2026-09-22 16:00:00 +0900
+date: 2026-09-22 10:40:00 +0900
 categories: [알고리즘 연습, 배열]
 tags: [java, leetcode, array]
 ---
