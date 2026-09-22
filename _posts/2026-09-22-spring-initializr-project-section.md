@@ -1,6 +1,6 @@
 ---
 title: "Spring Initializr의 Project 섹션 - 빌드 도구가 하는 일과 Maven vs Gradle"
-date: 2026-09-22 20:00:00 +0900
+date: 2026-09-22 16:41:00 +0900
 categories: [SpringBoot, 기초]
 tags: [spring-boot, gradle, maven, build-tool, java]
 ---
