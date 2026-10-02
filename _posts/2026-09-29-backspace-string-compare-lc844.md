@@ -95,33 +95,26 @@ public boolean backspaceCompare(String s, String t) {
 
 ## AI라면 어떻게 풀었을까
 
-스택 두 개 대신, 뒤에서부터 투 포인터로 비교하면 추가 공간(O(1))만 쓰고 풀 수 있다.
+`Deque<Character>` 두 개와 마지막에 문자열로 복원하는 과정 대신, `StringBuilder`를 스택처럼 바로 쓰면 더 짧아진다.
 
 ```java
 public boolean backspaceCompare(String s, String t) {
-    int i = s.length() - 1, j = t.length() - 1;
-    int skipS = 0, skipT = 0;
+    return build(s).equals(build(t));
+}
 
-    while (i >= 0 || j >= 0) {
-        while (i >= 0) {
-            if (s.charAt(i) == '#') { skipS++; i--; }
-            else if (skipS > 0) { skipS--; i--; }
-            else break;
+private String build(String s) {
+    StringBuilder stack = new StringBuilder();
+    for (char c : s.toCharArray()) {
+        if (c == '#') {
+            if (stack.length() > 0) {
+                stack.deleteCharAt(stack.length() - 1);
+            }
+        } else {
+            stack.append(c);
         }
-        while (j >= 0) {
-            if (t.charAt(j) == '#') { skipT++; j--; }
-            else if (skipT > 0) { skipT--; j--; }
-            else break;
-        }
-        if (i >= 0 && j >= 0) {
-            if (s.charAt(i) != t.charAt(j)) return false;
-        } else if (i >= 0 || j >= 0) {
-            return false;
-        }
-        i--; j--;
     }
-    return true;
+    return stack.toString();
 }
 ```
 
-스택은 "지워질 글자"도 일단 넣었다가(그러다 `'#'`를 만나면 꺼내는) 방식인데, 이 버전은 **뒤에서부터 보면서 "몇 개를 건너뛰어야 하는지"를 세는 카운터**(`skipS`, `skipT`)만 쓴다. `'#'`를 만나면 건너뛸 개수를 늘리고, 일반 문자인데 아직 건너뛸 게 남아있으면 그 문자도 건너뛰는 식이다. 스택이라는 별도 자료구조 없이, 두 포인터와 카운터만으로 같은 결과를 얻는다 — 다만 코드 복잡도는 스택 버전보다 높아서, 이해하기는 스택 버전이 더 쉽다.
+`stack.append(c)`가 `push()`, `stack.deleteCharAt(stack.length()-1)`이 `pop()` 역할을 한다 — 여전히 스택(LIFO)이지만, `Deque<Character>`로 쌓은 다음 `removeFirst()`로 순서를 맞춰 문자열로 복원하는 과정 자체가 없어진다. `StringBuilder`가 이미 정방향 순서를 들고 있어서, 처리가 끝나면 바로 `toString()`하면 끝이다. 두 문자열을 처리하는 로직이 똑같으니 `build()`로 중복도 줄였다.
