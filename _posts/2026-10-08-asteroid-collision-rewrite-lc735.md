@@ -102,30 +102,28 @@ public int[] asteroidCollision(int[] asteroids) {
 
 ## AI라면 어떻게 풀었을까
 
-별도의 `isAlive` 대신 **현재 소행성 `cur` 자체를 생존 표시**로 쓰고, 터지면 `cur = 0`으로 바꾼다(문제상 0은 입력에 없다). `cur`는 `for (int cur : asteroids)`가 매번 새로 주니까 리셋을 깜빡할 일이 없다. 또 `Deque` 대신 `int[]` 배열 + `top` 포인터로 스택을 구현하면 `reversed()` 없이 `Arrays.copyOf`로 순서 그대로 결과를 만든다.
+같은 `Deque` 스택으로, **`isAlive` 변수 없이** 푼다. `while`은 "cur가 확실히 이기는 동안만" `pop`하고, 반복이 끝난 뒤 남은 상황을 `if-else`로 나눈다. 가능한 상황은 셋뿐이다: 부딪힐 상대가 없음(push) / 같은 크기(pop 1번, 둘 다 터짐) / 상대가 더 큼(cur만 터짐).
 
 ```java
 public int[] asteroidCollisionAlt(int[] asteroids) {
-    int[] stack = new int[asteroids.length];
-    int top = -1;
+    Deque<Integer> stack = new ArrayDeque<>();
     for (int cur : asteroids) {
-        while (top >= 0 && cur < 0 && stack[top] > 0) {
-            if (stack[top] < -cur) {
-                top--;          // cur가 이김 → 다음 상대와 계속 충돌
-                continue;
-            }
-            if (stack[top] == -cur) {
-                top--;          // 비김 → 둘 다 터짐
-            }
-            cur = 0;            // cur 사망 표시
-            break;
+        while (!stack.isEmpty() && cur < 0 && stack.peek() > 0 && stack.peek() < -cur) {
+            stack.pop();                    // cur가 이김 → 다음 상대와 계속 충돌
         }
-        if (cur != 0) {
-            stack[++top] = cur;
+        if (stack.isEmpty() || cur > 0 || stack.peek() < 0) {
+            stack.push(cur);                // 부딪힐 상대가 없음
+        } else if (stack.peek() == -cur) {
+            stack.pop();                    // 비김 → 둘 다 터짐
         }
+        // 그 외: 맨 위가 더 큼 → cur만 터짐 (아무것도 안 함)
     }
-    return Arrays.copyOf(stack, top + 1);
+    int[] ans = new int[stack.size()];
+    for (int i = ans.length - 1; i >= 0; i--) {
+        ans[i] = stack.pop();               // 맨 위가 마지막 원소 → 뒤에서부터 채움
+    }
+    return ans;
 }
 ```
 
-트레이드오프: 별도 변수가 없어 실수할 곳이 줄지만, `0`이라는 특수값을 "죽음"으로 약속하는 방식이라 입력에 0이 있을 수 있는 문제에는 쓸 수 없다. 배열 스택은 크기를 미리 알아야 하지만 여기선 `asteroids.length`가 상한이라 충분하다.
+트레이드오프: 상태 변수가 없어서 이번에 틀린 "리셋 누락"이 구조적으로 생길 수 없다. 대신 `if-else`의 세 갈래 조건을 정확히 써야 해서, 조건 하나(`stack.peek() < 0`, `cur > 0`)를 빼먹으면 부딪히지 않는 경우에 pop해 버리는 실수가 난다. 결과는 `reversed()` 대신 `pop`을 뒤에서부터 채워 순서를 맞췄고, 스택을 쓰는 방식은 그대로다.
