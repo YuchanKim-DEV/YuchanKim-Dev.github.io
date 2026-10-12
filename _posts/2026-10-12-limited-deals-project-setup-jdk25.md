@@ -1,6 +1,7 @@
 ---
 title: "[LIMITED_DEALS] 프로젝트 세팅 - Spring Boot 4.1.1, 의존성, 그리고 JDK 21을 두고 이 프로젝트만 25로 빌드하기"
-date: 2026-10-12 20:00:00 +0900
+date: 2026-10-12 14:30:00 +0900
+published: false
 categories: [SIDE PROJECTS, LIMITED_DEALS]
 tags: [spring-boot, java, jdk, gradle, toolchain, jvm, homebrew]
 ---

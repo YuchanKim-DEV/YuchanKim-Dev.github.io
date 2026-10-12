@@ -1,6 +1,6 @@
 ---
 title: "[LIMITED_DEALS] GitHub 컨벤션 정하기 - 브랜치, 커밋, PR, 그리고 Create a merge commit을 고른 이유"
-date: 2026-10-12 20:30:00 +0900
+date: 2026-10-12 14:40:00 +0900
 categories: [SIDE PROJECTS, LIMITED_DEALS]
 tags: [github, convention, git, branch, commit, pull-request, merge-commit]
 ---
