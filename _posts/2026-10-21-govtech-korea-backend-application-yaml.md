@@ -28,7 +28,7 @@ spring:
 
 파일 형식만 바꾸면 빌드는 당연히 통과한다. 하지만 들여쓰기를 잘못 쓰거나 파일 이름에 오타가 있어도 빌드는 통과한다. 설정이 **실제로 읽혔는지** 확인할 방법이 필요했다.
 
-Spring Boot 3.4부터는 `spring.application.name`을 설정하면 **로그 줄마다 애플리케이션 이름이 붙는다.** 테스트 로그를 보면 바로 확인할 수 있다.
+지금 쓰는 Spring Boot 4.1.1은 `spring.application.name`을 설정하면 기본 로그 형식에서 **로그 줄마다 애플리케이션 이름이 붙는다.** 테스트 로그를 보면 바로 확인할 수 있다.
 
 ```
 [govtech] [    Test worker] com.govtech.GovtechApplicationTests ...
