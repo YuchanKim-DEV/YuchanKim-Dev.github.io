@@ -22,8 +22,8 @@ tags: [dependabot, github-actions, ci, dependency-management]
 이 저장소의 CI(`branch-flow`)는 develop으로 들어오는 PR의 브랜치 이름이 `feat/`, `fix/` 같은 정해진 접두사로 시작해야 통과시킨다. 그런데 Dependabot은 이런 이름으로 브랜치를 만든다.
 
 ```
-dependabot/gradle/org.springframework.boot-4.1.2
-dependabot/github_actions/actions-6ab1f3e
+dependabot/gradle/<패키지>-<버전>
+dependabot/github_actions/<그룹 또는 액션>-<해시>
 ```
 
 그대로 두면 Dependabot PR이 전부 CI에서 실패하고, ruleset 때문에 머지도 못 한다. 그래서 커밋을 둘로 나눴다.
