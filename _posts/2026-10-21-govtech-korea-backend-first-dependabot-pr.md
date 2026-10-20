@@ -1,6 +1,6 @@
 ---
 title: "[BACKEND] Dependabot의 첫 PR - GitHub Actions 메이저 버전 4개 올리기"
-date: 2026-10-21 02:42:00 +0900
+date: 2026-10-21 02:36:28 +0900
 categories: [SIDE PROJECTS, GOVTECH-KOREA]
 tags: [dependabot, github-actions, ci]
 ---
