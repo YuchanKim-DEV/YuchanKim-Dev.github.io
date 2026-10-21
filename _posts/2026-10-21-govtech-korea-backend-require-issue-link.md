@@ -21,6 +21,7 @@ GitHub Projects 보드를 정리하다가, 완료(Done)된 PR 중 이슈와 연�
 
 ## 변경 내용: issue-link 검사
 
+{% raw %}
 ```yaml
 name: PR Issue Link
 
@@ -51,12 +52,13 @@ jobs:
           echo "::error::PR 본문에 이 PR이 닫는 이슈를 적어 주세요. 예: Closes #12"
           exit 1
 ```
+{% endraw %}
 
 | 설계 | 이유 |
 |---|---|
 | `types`에 `edited` 추가 | 기본 트리거는 본문을 고쳐도 다시 돌지 않는다. 실패한 뒤 본문만 고치면 재검사돼야 한다 |
 | `pr-check.yml`과 분리 | 같은 파일에 넣으면 본문을 고칠 때마다 빌드까지 다시 돈다 |
-| 본문을 `env`로 전달 | `${{ github.event.pull_request.body }}`를 `run:`에 직접 쓰면 본문 내용이 셸 명령으로 실행될 수 있다(스크립트 주입) |
+{% raw %}| 본문을 `env`로 전달 | `${{ github.event.pull_request.body }}`를 `run:`에 직접 쓰면 본문 내용이 셸 명령으로 실행될 수 있다(스크립트 주입) |{% endraw %}
 | 예외 | Dependabot PR(이슈가 없음), develop → main 통합 PR |
 
 머지 후 ruleset의 필수 검사에 `issue-link`를 추가했다. 이제 이슈를 닫지 않는 PR은 머지 버튼이 잠긴다.
