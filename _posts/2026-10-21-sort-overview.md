@@ -78,6 +78,7 @@ Arrays.sort(arr, (a, b) -> a[0] != b[0] ? a[0] - b[0] : b[1] - a[1]);
 - **1번째 / 0번째 혼동**: 문제의 "k번째"는 1부터, 배열 인덱스는 0부터다.
 - **`int[]`에 `Collections.reverseOrder()`**: 컴파일 에러다. 기본형 배열에는 `Comparator`를 쓸 수 없다.
 - **`a - b` 넘침**: 값이 매우 크거나 음수와 섞이면 `a - b`가 `int` 범위를 넘을 수 있다. `Integer.compare(a, b)`가 안전하다.
+- **문자열에 `-`**: `(a + b) - (b + a)`는 컴파일 에러다. 문자열은 `X.compareTo(Y)`가 `X - Y` 자리를 대신한다. 이때 `b`가 앞(`(b + a).compareTo(a + b)`, `b.compareTo(a)`)이면 큰 게 앞(내림차순)이다.
 - **`Arrays.sort`는 반환값이 없다**: `arr = Arrays.sort(arr)`가 아니라 `Arrays.sort(arr);` 한 줄이다(배열 자체가 바뀐다).
 
 ## 시간복잡도
