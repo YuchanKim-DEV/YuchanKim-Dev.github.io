@@ -81,6 +81,7 @@ Arrays.sort(arr, (a, b) -> a[0] != b[0] ? a[0] - b[0] : b[1] - a[1]);
 - **문자열에 `-`**: `(a + b) - (b + a)`는 컴파일 에러다. 문자열은 `X.compareTo(Y)`가 `X - Y` 자리를 대신한다. 이때 `b`가 앞(`(b + a).compareTo(a + b)`, `b.compareTo(a)`)이면 큰 게 앞(내림차순)이다.
 - **`? :` 한쪽에 값 하나만 반환**: `(a, b) -> 조건 ? map.get(a) : ...`처럼 한쪽 값만 돌려주면 정렬이 깨진다. `?` 뒤와 `:` 뒤 모두 a와 b를 함께 비교한 식이어야 한다. 헷갈리면 `comparing(...).thenComparing(...)`으로 쓴다.
 - **`Integer`끼리 `==`/`!=`**: 128 이상이면 값이 같아도 다르다고 나올 수 있다. `.equals()`를 쓰거나 `int`로 꺼내 비교한다.
+- **`double` 기준을 뺄셈으로**: `map.get(b) - map.get(a)`가 `double`이면 컴파일 에러이고, `(int)`로 자르면 작은 차이가 0이 된다. `Double.compare(x, y)`를 쓴다. Comparator는 크기가 아니라 부호만 보므로 -1/0/1로 충분하다.
 - **`Arrays.sort`는 반환값이 없다**: `arr = Arrays.sort(arr)`가 아니라 `Arrays.sort(arr);` 한 줄이다(배열 자체가 바뀐다).
 
 ## 시간복잡도
