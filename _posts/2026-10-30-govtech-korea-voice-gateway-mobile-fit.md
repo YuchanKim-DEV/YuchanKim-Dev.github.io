@@ -35,3 +35,23 @@ tags: [css, mobile, viewport, ux-writing]
 ```
 
 `:has(.stage)`로 앱 화면이 있는 페이지에만 적용했다. 시작 화면과 통합 콘솔은 원래 긴 페이지라 평소처럼 스크롤된다.
+
+## 3. 민원인 앱도 같은 색으로, 스크롤 없이 한 화면에
+
+[PR #56](https://github.com/GovTech-korea/GovTech-Korea_VoiceGateway/pull/56)
+
+상담원 앱은 남색 바탕에 빨강 포인트인데 민원인 앱만 흰 바탕이었다. 같은 서비스의 두 앱인데 따로 만든 것처럼 보여서, 민원인 앱의 색 변수를 상담원 앱과 같은 값으로 맞췄다.
+
+스크롤 문제는 직접 재 보니 원인이 분명했다. 민원인 화면 내용은 647px인데 휴대폰에서 쓸 수 있는 높이는 552~616px이었다. 게다가 대기 상태에서도 **보이지 않는 칸이 자리를 차지**하고 있었다.
+
+- 통화 중에만 움직이는 소리 막대는 `visibility: hidden`이라 안 보여도 44px를 그대로 차지했다.
+- 비어 있는 통화 시간·안내 문구도 `min-height: 22px`만큼 자리를 잡고 있었다.
+
+그래서 아래 빈 공간까지 스크롤이 내려갔다. 소리 막대는 `visibility: hidden` 대신 `display: none`으로 숨기고, 빈 문구는 `:empty`일 때 숨겼다. 해태와 소리 그래프는 화면 높이에 따라 줄어들게 했다.
+
+```css
+.app-citizen .call-sub:empty, .app-citizen .call-timer:empty { display: none; }
+.app-citizen .avatar { width: clamp(96px, 20dvh, 150px); height: clamp(96px, 20dvh, 150px); }
+```
+
+이제 360×600과 390×664 크기에서 대기·통화 중·파일 선택 화면 모두 스크롤이 없다.
