@@ -95,7 +95,7 @@ PR 화면의 머지 버튼에는 세 가지 방식이 있다. 작업 브랜치�
 
 ## 5. Claude 전용 파일
 
-Claude가 참고하는 `CLAUDE.md` 같은 md, txt 파일은 반드시 `.gitignore`에 넣는다.
+처음에는 Claude가 참고하는 `CLAUDE.md` 같은 파일을 `.gitignore`에 넣기로 했다. 이후 AI를 어떻게 활용하는지 보여주기 위해 **저장소에 공개하는 것으로 바꿨다.** 개인 설정(`.claude/settings.local.json`)만 계속 무시한다.
 
 ## 정리
 
