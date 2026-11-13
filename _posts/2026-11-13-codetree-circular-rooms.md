@@ -1,6 +1,6 @@
 ---
 title: "[코드트리] 원 모양으로 되어있는 방 - 원형 거리는 (j - i + N) % N"
-date: 2026-11-13 10:55:00 +0900
+date: 2026-11-13 10:41:00 +0900
 categories: [알고리즘 연습, 완전탐색]
 tags: [java, codetree, brute-force, circular-array, modulo]
 ---

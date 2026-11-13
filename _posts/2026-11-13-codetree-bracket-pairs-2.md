@@ -1,6 +1,6 @@
 ---
 title: "[코드트리] 괄호 쌍 만들어주기 2 - 겹침 금지는 j를 i + 2부터"
-date: 2026-11-13 10:40:00 +0900
+date: 2026-11-13 10:31:00 +0900
 categories: [알고리즘 연습, 완전탐색]
 tags: [java, codetree, brute-force, string]
 ---
