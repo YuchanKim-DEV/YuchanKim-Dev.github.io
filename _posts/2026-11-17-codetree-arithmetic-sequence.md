@@ -7,7 +7,8 @@ tags: [java, codetree, brute-force, arithmetic-sequence]
 
 - 문제 링크: https://www.codetree.ai/ko/trails/complete/curated-cards/challenge-arithmetic-sequence/description
 - 파일 경로: `src/main/java/coding_test/완전탐색/CT_등차수열.java`
-- 난이도: 20XP (정답률 66%)
+- 난이도: Easy, 20XP (정답률 66%)
+- 제한: 1 ≤ N ≤ 100, 1 ≤ aᵢ ≤ 100, 정수는 모두 서로 다름 (1초, 64MiB)
 
 ## 문제 설명
 
@@ -20,7 +21,7 @@ tags: [java, codetree, brute-force, arithmetic-sequence]
 
 ## 시행착오
 
-구조는 처음부터 맞았다. **K 후보를 하나씩 정하고, 그 K에서 가능한 모든 쌍을 센다.** 틀린 곳은 두 군데였다. (제한 조건: N개의 정수는 모두 다르다.)
+구조는 처음부터 맞았다. **K 후보를 하나씩 정하고, 그 K에서 가능한 모든 쌍을 센다.** 틀린 곳은 두 군데였다. (제한 조건: 정수는 모두 다르다.)
 
 ### 1. K가 바뀌어도 count를 비우지 않고, 최댓값도 안 골랐다
 
